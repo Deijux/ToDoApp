@@ -48,7 +48,7 @@ export default function Home() {
   if (error) return <h1 className='text-white'>New Error: {error}</h1>
 
   return (
-    <main className='flex flex-col gap-10'>
+    <main className='flex flex-col gap-10 max-w-md'>
       <SearchBar onAddTask={handleNewTask} />
 
       <TaskList count={countToDo}>

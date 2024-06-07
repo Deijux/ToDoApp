@@ -37,7 +37,7 @@ export default function SearchBar({ onAddTask }: SearchBarProps) {
   if (error) return <h1 className='text-white'>New Error: {error}</h1>
   return (
     <form
-      className='flex flex-wrap flex-row items-center gap-2'
+      className='flex flex-wrap flex-row items-center gap-2 justify-center'
       onSubmit={handleSubmit}
     >
       <input
