@@ -7,7 +7,7 @@ interface SearchBarProps {
 }
 
 interface Task {
-  id: string | number
+  id: string
   title: string
   completed: boolean
 }
