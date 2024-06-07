@@ -1,0 +1,29 @@
+{
+  "todoList": [
+    {
+      "title": "Learn React",
+      "completed": false,
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "title": "Learn Redux",
+      "completed": false
+    },
+    {
+      "id": "3",
+      "title": "Learn GraphQL",
+      "completed": false
+    },
+    {
+      "id": "4",
+      "title": "Learn Apollo",
+      "completed": false
+    },
+    {
+      "title": "Learn Apollo Client",
+      "completed": false,
+      "id": "5"
+    }
+  ]
+}
