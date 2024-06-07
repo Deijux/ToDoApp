@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+<h1>
+    To Do App
+</h1>
 
-## Getting Started
+<p>
+To Do App es un software para la gestion de tus tareas diárias, puedes crear, editar el estado, y eliminar tus tareas!
+</p>
 
-First, run the development server:
+![React Badge](https://img.shields.io/badge/React-3a88f5?logo=react&logoColor=fff&style=flat)
+![TypeScript Badge](https://img.shields.io/badge/TypeScript-2d79c7?logo=TypeScript&logoColor=fff&style=flat)
+![Tailwind Badge](https://img.shields.io/badge/Tailwind-3ebff8?logo=Tailwindcss&logoColor=fff&style=flat)
+
+</div>
+
+## 🛠️ Stack
+
+- [**React**](https://es.react.dev//) - Biblioteca para interfaces de usuario web y nativas.
+- [**Typescript**](https://www.typescriptlang.org/) - JavaScript con sintaxis de tipado.
+- [**Tailwind CSS**](https://tailwindcss.com/) - Framework ágil de CSS.
+
+## 🚀 Getting Started
+
+1. Haz [Fork](https://github.com/Deijux/ToDoApp/fork) o clona este repositorio.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Deijux/ToDoApp.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Instala las dependencias:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Usa [npm](https://www.npmjs.com/) para instalar y manejar las dependencias.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+# instala las depencias mediante npm
+npm install
+```
 
-## Learn More
+3. Corre el servidor de desarrollo:
 
-To learn more about Next.js, take a look at the following resources:
+- Este paso es opcional, ya que este código integra un script que inicia el servidor de desarrollo cuando abren el proyecto en Visual Studio Code.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Inicia la base de datos
+npm run database
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# Inicia el servidor de desarrollo con npm
+npm run dev
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+4. Abre [**http://localhost:3000**](http://localhost:4321/) en tu navegador para ver los resultados 🚀
