@@ -14,12 +14,13 @@ type Task = {
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([])
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     servicesToDo
       .getToDo()
       .then(res => setTasks(res))
-      .catch(err => console.log(err))
+      .catch(err => setError(err.message))
   }, [])
 
   const countToDo = tasks.filter(task => !task.completed).length
@@ -43,6 +44,8 @@ export default function Home() {
       }),
     )
   }
+
+  if (error) return <h1 className='text-white'>New Error: {error}</h1>
 
   return (
     <main className='flex flex-col gap-10'>

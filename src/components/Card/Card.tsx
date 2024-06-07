@@ -2,6 +2,7 @@ import { IoCheckmark } from 'react-icons/io5'
 import { PiTrashSimple } from 'react-icons/pi'
 import { GoArrowUp } from 'react-icons/go'
 import { servicesToDo } from '@/app/service/ToDo-service'
+import { useState } from 'react'
 
 interface CardProps {
   styles?: string
@@ -22,12 +23,11 @@ export default function Card({
   onDeleteTask,
   onChangeStatusTask,
 }: CardProps) {
+  const [error, setError] = useState(null)
   const { deleteTask, changeStatusTask } = servicesToDo
 
   const handleDelete = (id: string) => {
-    deleteTask(id)
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
+    deleteTask(id).catch(err => setError(err.message))
     onDeleteTask(id)
   }
 
@@ -36,11 +36,11 @@ export default function Card({
     title: string,
     completed: boolean,
   ) => {
-    changeStatusTask(id, title, completed)
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
+    changeStatusTask(id, title, completed).catch(err => setError(err.message))
     onChangeStatusTask(id)
   }
+
+  if (error) return <p>New Error: {error}</p>
 
   return (
     <div

@@ -15,6 +15,7 @@ interface Task {
 export default function SearchBar({ onAddTask }: SearchBarProps) {
   const { addTask } = servicesToDo
   const [inputValue, setInputValue] = useState('')
+  const [error, setError] = useState(null)
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
@@ -28,12 +29,12 @@ export default function SearchBar({ onAddTask }: SearchBarProps) {
   const handleAddTask = (title: string) => {
     addTask(title)
       .then(res => {
-        console.log(res)
         onAddTask(res)
         setInputValue('')
       })
-      .catch(err => console.log(err))
+      .catch(err => setError(err.message))
   }
+  if (error) return <h1 className='text-white'>New Error: {error}</h1>
   return (
     <form
       className='flex flex-wrap flex-row items-center gap-2'
