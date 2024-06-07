@@ -4,7 +4,7 @@
 </h1>
 
 <p>
-To Do App es un software para la gestion de tus tareas diárias, puedes crear, editar el estado, y eliminar tus tareas!
+To Do App es un software para la gestion de tus tareas diarias, puedes crear, editar el estado, y eliminar tus tareas!
 </p>
 
 ![React Badge](https://img.shields.io/badge/React-3a88f5?logo=react&logoColor=fff&style=flat)
