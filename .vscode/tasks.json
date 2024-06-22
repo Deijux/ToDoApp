@@ -7,13 +7,6 @@
             "runOptions": {
                 "runOn": "folderOpen"
             }
-        },
-        {
-            "type": "npm"
-            , "script": "database",
-            "runOptions": {
-                "runOn": "folderOpen"
-            }
         }
     ]
 }
