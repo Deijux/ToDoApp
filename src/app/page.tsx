@@ -52,7 +52,9 @@ export default function Home() {
       <SearchBar onAddTask={handleNewTask} />
 
       <TaskList count={countToDo}>
-        {countToDo > 0 && <h1>Tareas por hacer - {countToDo}</h1>}
+        {countToDo > 0 && (
+          <h1 className='text-white'>Tareas por hacer - {countToDo}</h1>
+        )}
         {tasks.map(task => {
           if (!task.completed) {
             return (
@@ -71,7 +73,9 @@ export default function Home() {
       </TaskList>
 
       <TaskList>
-        {countDone > 0 && <h1>Tareas realizadas - {countDone}</h1>}
+        {countDone > 0 && (
+          <h1 className='text-white'>Tareas realizadas - {countDone}</h1>
+        )}
         {tasks.map(task => {
           if (task.completed) {
             return (
