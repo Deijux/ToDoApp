@@ -47,9 +47,7 @@ export default function Card({
       id={id}
       className='text-white py-6 px-4 bg-marshland-800 rounded-lg flex flex-row justify-between gap-3'
     >
-      <h2 className={`${styles} text- overflow-hidden text-ellipsis`}>
-        {content}
-      </h2>
+      <h2 className={`${styles} overflow-hidden text-ellipsis`}>{content}</h2>
       <ul className='flex flex-row gap-2'>
         <li className='flex'>
           <button onClick={() => handleChangeStatus(id, title, completed)}>
