@@ -5,6 +5,7 @@ const apiFetch = apiWeb */
 
 const getDataFromLocalStorage = () => {
   const data = JSON.parse(localStorage.getItem('todoList') || '[]')
+  if (!data.length) localStorage.setItem('todoList', JSON.stringify([]))
   return data
 }
 
@@ -33,7 +34,8 @@ const addTask = async (title: string) => {
   return data */
 
   const data = getDataFromLocalStorage()
-  const newTask = { id: data.length + 1, title, completed: false }
+  const id = new Date().getTime().toString()
+  const newTask = { id: id, title, completed: false }
   data.push(newTask)
   setDataToLocalStorage(data)
   return newTask
