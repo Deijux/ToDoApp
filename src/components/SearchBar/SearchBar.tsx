@@ -66,6 +66,7 @@ export default function SearchBar({ onAddTask }: SearchBarProps) {
       <button
         className='rounded-lg bg-marshland-400 flex items-center justify-center size-11 md:size-14'
         type='submit'
+        aria-label='Set task'
       >
         <IoAdd color='#fff' size={30} />
       </button>
