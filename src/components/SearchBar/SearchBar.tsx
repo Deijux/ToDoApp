@@ -57,14 +57,14 @@ export default function SearchBar({ onAddTask }: SearchBarProps) {
       onSubmit={handleSubmit}
     >
       <input
-        className='w-80 h-11 rounded-lg p-2 px-4 bg-marshland-900 border border-marshland-300 text-white placeholder-white'
+        className='w-80 md:w-96 h-11 md:h-14 rounded-lg p-2 px-4 bg-marshland-900 border border-marshland-300 text-white placeholder-white md:text-lg'
         type='text'
         placeholder='Agrega una tarea!'
         value={inputValue}
         onChange={handleInputChange}
       />
       <button
-        className='rounded-lg bg-marshland-400 flex items-center justify-center size-11'
+        className='rounded-lg bg-marshland-400 flex items-center justify-center size-11 md:size-14'
         type='submit'
       >
         <IoAdd color='#fff' size={30} />
