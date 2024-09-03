@@ -51,48 +51,48 @@ export default function Home() {
     <main className='flex flex-col gap-10 max-w-md'>
       <SearchBar onAddTask={handleNewTask} />
 
-      <TaskList count={countToDo}>
-        {countToDo > 0 && (
+      {countToDo > 0 && (
+        <TaskList count={countToDo}>
           <h1 className='text-white'>Tareas por hacer - {countToDo}</h1>
-        )}
-        {tasks?.map(task => {
-          if (!task.completed) {
-            return (
-              <Card
-                id={task.id}
-                title={task.title}
-                key={task.id}
-                content={task.title}
-                onDeleteTask={handleDeleteTask}
-                onChangeStatusTask={handleChangeStatusTask}
-                completed={task.completed}
-              />
-            )
-          }
-        })}
-      </TaskList>
+          {tasks?.map(task => {
+            if (!task.completed) {
+              return (
+                <Card
+                  id={task.id}
+                  title={task.title}
+                  key={task.id}
+                  content={task.title}
+                  onDeleteTask={handleDeleteTask}
+                  onChangeStatusTask={handleChangeStatusTask}
+                  completed={task.completed}
+                />
+              )
+            }
+          })}
+        </TaskList>
+      )}
 
-      <TaskList>
-        {countDone > 0 && (
+      {countDone > 0 && (
+        <TaskList>
           <h1 className='text-white'>Tareas realizadas - {countDone}</h1>
-        )}
-        {tasks?.map(task => {
-          if (task.completed) {
-            return (
-              <Card
-                key={task.id}
-                id={task.id}
-                title={task.title}
-                content={task.title}
-                styles='line-through text-[#78CFB0]'
-                onDeleteTask={handleDeleteTask}
-                onChangeStatusTask={handleChangeStatusTask}
-                completed={task.completed}
-              />
-            )
-          }
-        })}
-      </TaskList>
+          {tasks?.map(task => {
+            if (task.completed) {
+              return (
+                <Card
+                  key={task.id}
+                  id={task.id}
+                  title={task.title}
+                  content={task.title}
+                  styles='line-through text-[#78CFB0]'
+                  onDeleteTask={handleDeleteTask}
+                  onChangeStatusTask={handleChangeStatusTask}
+                  completed={task.completed}
+                />
+              )
+            }
+          })}
+        </TaskList>
+      )}
     </main>
   )
 }
