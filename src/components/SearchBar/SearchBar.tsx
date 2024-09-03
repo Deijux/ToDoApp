@@ -1,6 +1,7 @@
 import { IoAdd } from 'react-icons/io5'
 import { servicesToDo } from '@/app/service/ToDo-service'
 import { useState, ChangeEvent, FormEvent } from 'react'
+import Swal from 'sweetalert2'
 
 interface SearchBarProps {
   onAddTask: (task: Task) => void
@@ -23,7 +24,22 @@ export default function SearchBar({ onAddTask }: SearchBarProps) {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    handleAddTask(inputValue)
+    if (inputValue.trim() === '') {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Ingresa un dato valido!',
+        icon: 'error',
+        position: 'bottom-end',
+        toast: true,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: '#1c4543',
+        color: '#fff',
+      })
+    } else {
+      handleAddTask(inputValue)
+    }
   }
 
   const handleAddTask = (title: string) => {
@@ -37,18 +53,18 @@ export default function SearchBar({ onAddTask }: SearchBarProps) {
   if (error) return <h1 className='text-white'>New Error: {error}</h1>
   return (
     <form
-      className='flex flex-wrap flex-row items-center gap-2 justify-center'
+      className='flex flex-wrap flex-row gap-2 justify-center'
       onSubmit={handleSubmit}
     >
       <input
-        className='w-80 rounded-lg p-2 px-4 bg-marshland-900 border border-marshland-300 text-white placeholder-white'
+        className='w-80 h-11 rounded-lg p-2 px-4 bg-marshland-900 border border-marshland-300 text-white placeholder-white'
         type='text'
         placeholder='Agrega una tarea!'
         value={inputValue}
         onChange={handleInputChange}
       />
       <button
-        className='rounded-lg bg-marshland-400 flex items-center justify-center h-10 w-10'
+        className='rounded-lg bg-marshland-400 flex items-center justify-center size-11'
         type='submit'
       >
         <IoAdd color='#fff' size={30} />

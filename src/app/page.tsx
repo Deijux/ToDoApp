@@ -3,6 +3,7 @@ import SearchBar from '@/components/SearchBar/SearchBar'
 import TaskList from '@/components/TaskList/TaskList'
 import { servicesToDo } from './service/ToDo-service'
 import Card from '@/components/Card/Card'
+import Swal from 'sweetalert2'
 
 import { useEffect, useState } from 'react'
 
@@ -45,7 +46,18 @@ export default function Home() {
     )
   }
 
-  if (error) return <h1 className='text-white'>New Error: {error}</h1>
+  if (error) {
+    Swal.fire({
+      title: 'Error!',
+      text: 'Error al cargar las tareas!',
+      icon: 'error',
+      position: 'bottom-end',
+      toast: true,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    })
+  }
 
   return (
     <main className='flex flex-col gap-10 max-w-md'>
