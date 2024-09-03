@@ -3,6 +3,7 @@ import SearchBar from '@/components/SearchBar/SearchBar'
 import TaskList from '@/components/TaskList/TaskList'
 import { servicesToDo } from './service/ToDo-service'
 import Card from '@/components/Card/Card'
+import Swal from 'sweetalert2'
 
 import { useEffect, useState } from 'react'
 
@@ -23,8 +24,8 @@ export default function Home() {
       .catch(err => setError(err.message))
   }, [])
 
-  const countToDo = tasks.filter(task => !task.completed).length
-  const countDone = tasks.filter(task => task.completed).length
+  const countToDo = tasks?.filter(task => !task.completed).length
+  const countDone = tasks?.filter(task => task.completed).length
 
   const handleNewTask = (newTask: Task) => {
     setTasks([...tasks, newTask])
@@ -45,50 +46,65 @@ export default function Home() {
     )
   }
 
-  if (error) return <h1 className='text-white'>New Error: {error}</h1>
+  if (error) {
+    Swal.fire({
+      title: 'Error!',
+      text: 'Error al cargar las tareas!',
+      icon: 'error',
+      position: 'bottom-end',
+      toast: true,
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    })
+  }
 
   return (
     <main className='flex flex-col gap-10 max-w-md'>
       <SearchBar onAddTask={handleNewTask} />
 
-      <TaskList count={countToDo}>
-        {countToDo > 0 && <h1>Tareas por hacer - {countToDo}</h1>}
-        {tasks.map(task => {
-          if (!task.completed) {
-            return (
-              <Card
-                id={task.id}
-                title={task.title}
-                key={task.id}
-                content={task.title}
-                onDeleteTask={handleDeleteTask}
-                onChangeStatusTask={handleChangeStatusTask}
-                completed={task.completed}
-              />
-            )
-          }
-        })}
-      </TaskList>
+      {countToDo > 0 && (
+        <TaskList count={countToDo}>
+          <h1 className='text-white'>Tareas por hacer - {countToDo}</h1>
+          {tasks?.map(task => {
+            if (!task.completed) {
+              return (
+                <Card
+                  id={task.id}
+                  title={task.title}
+                  key={task.id}
+                  content={task.title}
+                  onDeleteTask={handleDeleteTask}
+                  onChangeStatusTask={handleChangeStatusTask}
+                  completed={task.completed}
+                />
+              )
+            }
+          })}
+        </TaskList>
+      )}
 
-      <TaskList>
-        {countDone > 0 && <h1>Tareas realizadas - {countDone}</h1>}
-        {tasks.map(task => {
-          if (task.completed) {
-            return (
-              <Card
-                key={task.id}
-                id={task.id}
-                title={task.title}
-                content={task.title}
-                styles='line-through text-[#78CFB0]'
-                onDeleteTask={handleDeleteTask}
-                onChangeStatusTask={handleChangeStatusTask}
-                completed={task.completed}
-              />
-            )
-          }
-        })}
-      </TaskList>
+      {countDone > 0 && (
+        <TaskList>
+          <h1 className='text-white'>Tareas realizadas - {countDone}</h1>
+          {tasks?.map(task => {
+            if (task.completed) {
+              return (
+                <Card
+                  key={task.id}
+                  id={task.id}
+                  title={task.title}
+                  content={task.title}
+                  styles='line-through text-[#78CFB0]'
+                  onDeleteTask={handleDeleteTask}
+                  onChangeStatusTask={handleChangeStatusTask}
+                  completed={task.completed}
+                />
+              )
+            }
+          })}
+        </TaskList>
+      )}
     </main>
   )
 }

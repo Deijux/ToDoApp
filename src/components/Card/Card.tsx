@@ -45,22 +45,22 @@ export default function Card({
   return (
     <div
       id={id}
-      className='text-[#9E78CF] py-6 px-4 bg-[#15101C] rounded-lg flex flex-row justify-between'
+      className='text-white py-6 px-4 bg-marshland-800 rounded-lg flex flex-row justify-between gap-3'
     >
-      <h2 className={`${styles}`}>{content}</h2>
+      <h2 className={`${styles} overflow-hidden text-ellipsis`}>{content}</h2>
       <ul className='flex flex-row gap-2'>
         <li className='flex'>
           <button onClick={() => handleChangeStatus(id, title, completed)}>
             {completed ? (
-              <GoArrowUp size={20} color='#9E78CF' />
+              <GoArrowUp size={20} color='white' />
             ) : (
-              <IoCheckmark size={20} color='#9E78CF' />
+              <IoCheckmark size={20} color='white' />
             )}
           </button>
         </li>
         <li className='flex'>
           <button onClick={() => handleDelete(id)}>
-            <PiTrashSimple size={20} color='#9E78CF' />
+            <PiTrashSimple size={20} color='white' />
           </button>
         </li>
       </ul>
