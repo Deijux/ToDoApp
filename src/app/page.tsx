@@ -23,8 +23,8 @@ export default function Home() {
       .catch(err => setError(err.message))
   }, [])
 
-  const countToDo = tasks.filter(task => !task.completed).length
-  const countDone = tasks.filter(task => task.completed).length
+  const countToDo = tasks?.filter(task => !task.completed).length
+  const countDone = tasks?.filter(task => task.completed).length
 
   const handleNewTask = (newTask: Task) => {
     setTasks([...tasks, newTask])
@@ -55,7 +55,7 @@ export default function Home() {
         {countToDo > 0 && (
           <h1 className='text-white'>Tareas por hacer - {countToDo}</h1>
         )}
-        {tasks.map(task => {
+        {tasks?.map(task => {
           if (!task.completed) {
             return (
               <Card
@@ -76,7 +76,7 @@ export default function Home() {
         {countDone > 0 && (
           <h1 className='text-white'>Tareas realizadas - {countDone}</h1>
         )}
-        {tasks.map(task => {
+        {tasks?.map(task => {
           if (task.completed) {
             return (
               <Card
