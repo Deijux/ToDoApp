@@ -1,5 +1,6 @@
 'use client'
 import SearchBar from '@/components/SearchBar/SearchBar'
+import Welcome from '@/components/Welcome/Welcome'
 import TaskList from '@/components/TaskList/TaskList'
 import { servicesToDo } from './service/ToDo-service'
 import Card from '@/components/Card/Card'
@@ -60,12 +61,16 @@ export default function Home() {
   }
 
   return (
-    <main className='flex flex-col gap-10 max-w-md'>
+    <main className='flex flex-col items-center gap-10 max-w-md'>
       <SearchBar onAddTask={handleNewTask} />
+
+      {countToDo === 0 && countDone === 0 && <Welcome />}
 
       {countToDo > 0 && (
         <TaskList count={countToDo}>
-          <h1 className='text-white'>Tareas por hacer - {countToDo}</h1>
+          <h1 className='text-white md:text-lg'>
+            Tareas por hacer - {countToDo}
+          </h1>
           {tasks?.map(task => {
             if (!task.completed) {
               return (
@@ -86,7 +91,9 @@ export default function Home() {
 
       {countDone > 0 && (
         <TaskList>
-          <h1 className='text-white'>Tareas realizadas - {countDone}</h1>
+          <h1 className='text-white md:text-lg'>
+            Tareas realizadas - {countDone}
+          </h1>
           {tasks?.map(task => {
             if (task.completed) {
               return (
