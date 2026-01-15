@@ -2,116 +2,59 @@
 import SearchBar from '@/components/SearchBar/SearchBar'
 import Welcome from '@/components/Welcome/Welcome'
 import TaskList from '@/components/TaskList/TaskList'
-import { servicesToDo } from './service/ToDo-service'
 import Card from '@/components/Card/Card'
-import Swal from 'sweetalert2'
-
-import { useEffect, useState } from 'react'
-
-type Task = {
-  id: string
-  title: string
-  completed: boolean
-}
+import { useTaskContext } from '@/context/task.context'
 
 export default function Home() {
-  const [tasks, setTasks] = useState<Task[]>([])
-  const [error, setError] = useState(null)
-
-  useEffect(() => {
-    servicesToDo
-      .getToDo()
-      .then(res => setTasks(res))
-      .catch(err => setError(err.message))
-  }, [])
-
-  const countToDo = tasks?.filter(task => !task.completed).length
-  const countDone = tasks?.filter(task => task.completed).length
-
-  const handleNewTask = (newTask: Task) => {
-    setTasks([...tasks, newTask])
-  }
-
-  const handleDeleteTask = (id: string) => {
-    setTasks(tasks.filter(task => task.id !== id))
-  }
-
-  const handleChangeStatusTask = (id: string) => {
-    setTasks(
-      tasks.map(task => {
-        if (task.id === id) {
-          task.completed = !task.completed
-        }
-        return task
-      }),
-    )
-  }
-
-  if (error) {
-    Swal.fire({
-      title: 'Error!',
-      text: 'Error al cargar las tareas!',
-      icon: 'error',
-      position: 'bottom-end',
-      toast: true,
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-    })
-  }
+  const { pendingTasks, completedTasks, handleUpdateStatus, handleDeleteTask } = useTaskContext()
 
   return (
-    <main className='flex flex-col items-center gap-10 max-w-md'>
-      <SearchBar onAddTask={handleNewTask} />
+    <main className='grid content-start justify-center pt-6' >
+      <div className='flex flex-col items-center gap-10 max-w-md'>
+        <SearchBar />
 
-      {countToDo === 0 && countDone === 0 && <Welcome />}
+        {pendingTasks.length === 0 && completedTasks.length === 0 && <Welcome />}
 
-      {countToDo > 0 && (
-        <TaskList count={countToDo}>
-          <h1 className='text-white md:text-lg'>
-            Tareas por hacer - {countToDo}
-          </h1>
-          {tasks?.map(task => {
-            if (!task.completed) {
-              return (
-                <Card
-                  id={task.id}
-                  title={task.title}
-                  key={task.id}
-                  content={task.title}
-                  onDeleteTask={handleDeleteTask}
-                  onChangeStatusTask={handleChangeStatusTask}
-                  completed={task.completed}
-                />
-              )
-            }
-          })}
-        </TaskList>
-      )}
+        {pendingTasks.length > 0 && (
+          <TaskList count={pendingTasks}>
+            <h1 className='text-white md:text-lg'>
+              Tareas por hacer - {pendingTasks.length}
+            </h1>
+            {pendingTasks.map(task => (
+              <Card
+                key={task._id}
+                id={task._id}
+                title={task.title}
+                content={task.title}
+                completed={task.completed}
+                onChangeStatus={handleUpdateStatus}
+                onDelete={handleDeleteTask}
+              />
+            ))}
+          </TaskList>
+        )}
 
-      {countDone > 0 && (
-        <TaskList>
-          <h1 className='text-white md:text-lg'>
-            Tareas realizadas - {countDone}
-          </h1>
-          {tasks?.map(task => {
-            if (task.completed) {
-              return (
-                <Card
-                  key={task.id}
-                  id={task.id}
-                  title={task.title}
-                  content={task.title}
-                  styles='line-through text-[#78CFB0]'
-                  onDeleteTask={handleDeleteTask}
-                  onChangeStatusTask={handleChangeStatusTask}
-                  completed={task.completed}
-                />
-              )
-            }
-          })}
-        </TaskList>
-      )}
+        {completedTasks.length > 0 && (
+          <TaskList>
+            <h1 className='text-white md:text-lg'>
+              Tareas realizadas - {completedTasks.length}
+            </h1>
+            {completedTasks.map(task => (
+              <Card
+                key={task._id}
+                id={task._id}
+                title={task.title}
+                content={task.title}
+                styles='line-through text-[#78CFB0]'
+                completed={task.completed}
+                onChangeStatus={handleUpdateStatus}
+                onDelete={handleDeleteTask}
+              />
+            ))}
+          </TaskList>
+        )}
+      </div>
+      
     </main>
   )
 }

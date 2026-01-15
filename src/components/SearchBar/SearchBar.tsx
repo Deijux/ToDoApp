@@ -1,22 +1,11 @@
-import { IoAdd } from 'react-icons/io5'
-import { servicesToDo } from '@/app/service/ToDo-service'
 import { useState, ChangeEvent, FormEvent } from 'react'
+import { useTaskContext } from '@/context/task.context'
+import { IoAdd } from 'react-icons/io5'
 import Swal from 'sweetalert2'
 
-interface SearchBarProps {
-  onAddTask: (task: Task) => void
-}
-
-interface Task {
-  id: string
-  title: string
-  completed: boolean
-}
-
-export default function SearchBar({ onAddTask }: SearchBarProps) {
-  const { addTask } = servicesToDo
+export default function SearchBar() {
   const [inputValue, setInputValue] = useState('')
-  const [error, setError] = useState(null)
+  const { handleAddTask } = useTaskContext()
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
@@ -42,15 +31,6 @@ export default function SearchBar({ onAddTask }: SearchBarProps) {
     }
   }
 
-  const handleAddTask = (title: string) => {
-    addTask(title)
-      .then(res => {
-        onAddTask(res)
-        setInputValue('')
-      })
-      .catch(err => setError(err.message))
-  }
-  if (error) return <h1 className='text-white'>New Error: {error}</h1>
   return (
     <form
       className='flex flex-wrap flex-row gap-2 justify-center'
