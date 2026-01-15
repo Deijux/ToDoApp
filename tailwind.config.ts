@@ -24,6 +24,7 @@ const config: Config = {
       emerald: colors.emerald,
       indigo: colors.indigo,
       yellow: colors.yellow,
+      red: colors.red,
       marshland: {
         '50': '#f2fbf9',
         '100': '#d3f4ee',
