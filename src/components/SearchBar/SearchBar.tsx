@@ -1,11 +1,13 @@
 import { useState, ChangeEvent, FormEvent } from 'react'
-import { useTaskContext } from '@/context/task.context'
 import { IoAdd } from 'react-icons/io5'
 import Swal from 'sweetalert2'
 
-export default function SearchBar() {
+interface SearchBarProps {
+  handleAddTask: (taskTitle: string) => void
+}
+
+export default function SearchBar({ handleAddTask }: SearchBarProps) {
   const [inputValue, setInputValue] = useState('')
-  const { handleAddTask } = useTaskContext()
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)

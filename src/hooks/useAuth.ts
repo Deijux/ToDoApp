@@ -26,7 +26,7 @@ export function useAuth() {
       try {
         const userLogged = await authService.login({ email, password })
         setUser(userLogged.data)
-        router.push('/')
+        router.push('/tasks')
       } catch (error) {
         if (axios.isAxiosError(error)) {
           const message = error.response?.data?.message || 'Error al iniciar sesión'
