@@ -1,52 +1,39 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useCallback } from 'react'
 import { authService } from '@/services/auth.service'
-import { useRouter } from 'next/navigation'
-import axios from 'axios'
-
-type User = {
-  id: string
-  email: string
-}
+import { handleAxiosError } from '@/utils/error.handler'
 
 export function useAuth() {
-  const [user, setUser] = useState<User | null>(null)
-  const router = useRouter()
-
-  useEffect(() => {
-    authService
-      .profile()
-      .then(res => setUser(res.data))
-      .catch(() => setUser(null))
+  const login = useCallback(async (email: string, password: string) => {
+    try {
+      const userLogged = await authService.login({ email, password })
+      return userLogged
+    } catch (error) {
+      throw new Error(handleAxiosError(error, 'Error al iniciar sesión'))
+    }
   }, [])
 
-  const login = useCallback(
-    async (email: string, password: string) => {
-      try {
-        const userLogged = await authService.login({ email, password })
-        setUser(userLogged.data)
-        router.push('/tasks')
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          const message = error.response?.data?.message || 'Error al iniciar sesión'
-          throw new Error(message)
-        }
-        throw new Error('Error inesperado')
-      }
-    },
-    [router],
-  )
-
   const logout = useCallback(async () => {
-    await authService.logout()
-    setUser(null)
+    try {
+      await authService.logout()
+    } catch (error) {
+      throw new Error(handleAxiosError(error, 'Error al cerrar sesión'))
+    }
+  }, [])
+
+  const profile = useCallback(async () => {
+    try {
+      const userProfile = await authService.profile()
+      return userProfile
+    } catch (error) {
+      throw new Error(handleAxiosError(error, 'Error al obtener el perfil'))
+    }
   }, [])
 
   return {
-    user,
-    isAuthenticated: !!user,
     login,
     logout,
+    profile,
   }
 }

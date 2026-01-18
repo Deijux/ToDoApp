@@ -1,4 +1,5 @@
-import { api } from "@/lib/api"
+import { api } from '@/lib/api'
+import { User } from '@/types/user'
 
 type LoginDto = {
   email: string
@@ -6,12 +7,12 @@ type LoginDto = {
 }
 
 export const authService = {
-  login(data: LoginDto) {
+  login(data: LoginDto): Promise<User> {
     return api.post('/auth/login', data)
   },
 
-  profile() {
-    return api.get('/auth/profile')
+  profile(): Promise<User> {
+    return api.post('/auth/profile')
   },
 
   logout() {
