@@ -7,15 +7,17 @@ type LoginDto = {
 }
 
 export const authService = {
-  login(data: LoginDto): Promise<User> {
-    return api.post('/auth/login', data)
+  async login(data: LoginDto): Promise<User> {
+    const response = await api.post('/auth/login', data);
+    return response.data;
   },
 
-  profile(): Promise<User> {
-    return api.post('/auth/profile')
+  async profile(): Promise<User> {
+    const response = await api.post('/auth/profile');
+    return response.data;
   },
 
-  logout() {
-    return api.post('/auth/logout')
+  async logout(): Promise<void> {
+    await api.post('/auth/logout');
   },
 }
