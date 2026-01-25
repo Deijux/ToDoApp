@@ -2,25 +2,26 @@
 
 import { useForm } from 'react-hook-form'
 
-type LoginFormData = {
+type RegisterFormData = {
   email: string
   password: string
+  firstName: string
+  lastName: string
 }
 
-type LoginFormProps = {
-  onSubmit: (email: string, password: string) => Promise<void>,
-  redirectToRegister: () => void
+type RegisterFormProps = {
+  onSubmit: (email: string, password: string, firstName: string, lastName: string) => Promise<void>
 }
 
-export default function LoginForm({ onSubmit, redirectToRegister }: LoginFormProps) {
+export default function RegisterForm({ onSubmit }: RegisterFormProps) {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginFormData>()
+  } = useForm<RegisterFormData>()
 
-  const submit = async (data: LoginFormData) => {
-    await onSubmit(data.email, data.password)
+  const submit = async (data: RegisterFormData) => {
+    await onSubmit(data.email, data.password, data.firstName, data.lastName)
   }
 
   return (
@@ -32,11 +33,57 @@ export default function LoginForm({ onSubmit, redirectToRegister }: LoginFormPro
         {/* Header */}
         <div className='space-y-2 mb-2'>
           <h1 className='text-3xl font-bold text-gray-800 text-center'>
-            Bienvenido
+            Crear cuenta
           </h1>
           <p className='text-gray-500 text-center text-sm'>
-            Ingresa tus credenciales para continuar
+            Ingresa tus datos para registrarte
           </p>
+        </div>
+
+        {/* First Name */}
+        <div className='flex flex-col gap-1.5'>
+          <label className='text-sm font-medium text-gray-700 ml-1'>
+            Nombre
+          </label>
+          <input
+            type='text'
+            placeholder='Tu nombre'
+            {...register('firstName', { required: 'El nombre es obligatorio' })}
+            className={`w-full px-4 py-3 rounded-xl border outline-none transition-all duration-200 
+          ${
+            errors.firstName
+              ? 'border-red-500 focus:ring-2 focus:ring-red-200'
+              : 'border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100'
+          }`}
+          />
+          {errors.firstName && (
+            <span className='text-red-500 text-xs font-medium ml-1'>
+              {errors.firstName.message}
+            </span>
+          )}
+        </div>
+        
+        {/* Last Name */}
+        <div className='flex flex-col gap-1.5'>
+          <label className='text-sm font-medium text-gray-700 ml-1'>
+            Apellido
+          </label>
+          <input
+            type='text'
+            placeholder='Tu apellido'
+            {...register('lastName', { required: 'El apellido es obligatorio' })}
+            className={`w-full px-4 py-3 rounded-xl border outline-none transition-all duration-200 
+          ${
+            errors.lastName
+              ? 'border-red-500 focus:ring-2 focus:ring-red-200'
+              : 'border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100'
+          }`}
+          />
+          {errors.lastName && (
+            <span className='text-red-500 text-xs font-medium ml-1'>
+              {errors.lastName.message}
+            </span>
+          )}
         </div>
 
         {/* Email */}
@@ -85,15 +132,6 @@ export default function LoginForm({ onSubmit, redirectToRegister }: LoginFormPro
               {errors.password.message}
             </span>
           )}
-          <div className='text-right'>
-            <button
-              type='button'
-              onClick={redirectToRegister}
-              className='text-xs text-blue-600 hover:underline'
-            >
-              ¿Nuevo aquí? Regístrate
-            </button>
-          </div>
         </div>
 
         {/* Submit */}

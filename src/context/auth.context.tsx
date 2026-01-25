@@ -14,15 +14,17 @@ export const AuthContext = createContext<{
   user: User | null
   handleLogin: (email: string, password: string) => Promise<void>
   handleLogout: () => Promise<void>
+  handleRegister: (email: string, password: string, firstName: string, lastName: string) => Promise<void>
 }>({
   user: null,
   handleLogin: async () => {},
   handleLogout: async () => {},
+  handleRegister: async () => {},
 })
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
-  const { profile, login, logout } = useAuth()
+  const { profile, login, logout, register } = useAuth()
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -47,8 +49,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null)
   }
 
+  const handleRegister = async (email: string, password: string, firstName: string, lastName: string) => {
+    const userRegistered = await register(email, password, firstName, lastName)
+    setUser(userRegistered || null)
+    window.location.href = '/tasks'
+  }
+
   return (
-    <AuthContext.Provider value={{ user, handleLogin, handleLogout }}>
+    <AuthContext.Provider value={{ user, handleLogin, handleLogout, handleRegister }}>
       {children}
     </AuthContext.Provider>
   )

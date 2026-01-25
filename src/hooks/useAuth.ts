@@ -22,6 +22,15 @@ export function useAuth() {
     }
   }, [])
 
+  const register = useCallback(async (email: string, password: string, firstName: string, lastName: string) => {
+    try {
+      const userRegistered = await authService.register({ email, password, firstName, lastName })
+      return userRegistered
+    } catch (error) {
+      throw new Error(handleAxiosError(error, 'Error al registrar usuario'))
+    }
+  }, [])
+
   const profile = useCallback(async () => {
     try {
       const userProfile = await authService.profile()
@@ -34,6 +43,7 @@ export function useAuth() {
   return {
     login,
     logout,
+    register,
     profile,
   }
 }
