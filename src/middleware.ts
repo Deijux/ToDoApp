@@ -14,6 +14,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/tasks', request.url))
   }
 
+  if ((pathname === '/register') && token) {
+    return NextResponse.redirect(new URL('/tasks', request.url))
+  }
+
   if (pathname === '/' && token) {
     return NextResponse.redirect(new URL('/tasks', request.url))
   }
@@ -29,6 +33,7 @@ export const config = {
   matcher: [
     '/tasks/:path*',
     '/login',
+    '/register',
     '/',
   ],
 }
