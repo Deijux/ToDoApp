@@ -1,57 +1,60 @@
-<div align="center">
-<h1>
-    To Do App
-</h1>
+# ToDoApp FrontEnd
 
-<p>
-To Do App es un software para la gestion de tus tareas diarias, puedes crear, editar el estado, y eliminar tus tareas!
-</p>
+Una aplicación moderna de gestión de tareas construida con **Next.js**, **React Context API** y **TypeScript**.\
+Revisa el [Repositorio BackEnd](https://github.com/Deijux/ToDoAppBackend)
 
-![React Badge](https://img.shields.io/badge/React-3a88f5?logo=react&logoColor=fff&style=flat)
-![TypeScript Badge](https://img.shields.io/badge/TypeScript-2d79c7?logo=TypeScript&logoColor=fff&style=flat)
-![Tailwind Badge](https://img.shields.io/badge/Tailwind-3ebff8?logo=Tailwindcss&logoColor=fff&style=flat)
+## 📋 Características
 
-</div>
+- ✅ Autenticación de usuarios (login y registro)
+- ✅ Gestión de tareas (crear, leer, actualizar, eliminar)
+- ✅ Búsqueda de tareas
+- ✅ Interfaz responsiva con Tailwind CSS
+- ✅ Validación de formularios
 
-## 🛠️ Stack
+## 🛠️ Tecnologías
 
-- [**React**](https://es.react.dev//) - Biblioteca para interfaces de usuario web y nativas.
-- [**Typescript**](https://www.typescriptlang.org/) - JavaScript con sintaxis de tipado.
-- [**Tailwind CSS**](https://tailwindcss.com/) - Framework ágil de CSS.
+- **Framework**: Next.js 14+
+- **Lenguaje**: TypeScript
+- **Estilos**: Tailwind CSS + PostCSS
+- **Estado**: React Context API
+- **Linting**: ESLint
+- **Formateador**: Prettier
 
-## 🚀 Getting Started
+## 📁 Estructura del Proyecto
 
-1. Haz [Fork](https://github.com/Deijux/ToDoApp/fork) o clona este repositorio.
+```
+src/
+├── app/                    # Rutas y layouts de Next.js
+│   ├── login/             # Página de inicio de sesión
+│   ├── register/          # Página de registro
+│   ├── tasks/             # Página de gestión de tareas
+│   ├── layout.tsx         # Layout principal
+│   ├── page.tsx           # Página de inicio
+│   └── globals.css        # Estilos globales
+├── components/            # Componentes reutilizables
+│   ├── Card/
+│   ├── LoginForm/
+│   ├── RegisterForm/
+│   ├── SearchBar/
+│   ├── TaskList/
+│   └── Welcome/
+├── context/               # React Context (estado global)
+│   ├── auth.context.tsx   # Contexto de autenticación
+│   └── task.context.tsx   # Contexto de tareas
+├── hooks/                 # Custom hooks
+│   ├── useAuth.ts         # Hook para autenticación
+│   └── useTasks.ts        # Hook para tareas
+├── lib/                   # Funciones utilitarias
+│   └── api.ts             # Cliente API
+├── services/              # Servicios de lógica de negocio
+│   ├── auth.service.ts    # Servicio de autenticación
+│   └── tasks.service.ts   # Servicio de tareas
+├── types/                 # Definiciones de tipos TypeScript
+│   ├── task.ts
+│   └── user.ts
+├── utils/                 # Utilidades
+│   └── error.handler.ts   # Manejador de errores
+└── middleware.ts          # Middleware de Next.js
+```
 
-   ```bash
-   git clone https://github.com/Deijux/ToDoApp.git
-   ```
-
-2. Instala las dependencias:
-
-   - Usa [npm](https://www.npmjs.com/) para instalar y manejar las dependencias.
-
-   ```bash
-   # instala las depencias mediante npm
-   npm install
-   ```
-
-3. Corre el servidor de desarrollo:
-
-   - Este paso es opcional, ya que este código integra un script que inicia el servidor de desarrollo cuando abren el proyecto en Visual Studio Code.
-
-   ```bash
-   # Inicia el servidor de desarrollo con npm
-   npm run dev
-   ```
-
-4. Abre [**http://localhost:3000**](http://localhost:3000/) en tu navegador para ver los resultados 🚀
-
-5. (Opcional) Si quieres usar el sevidor local solo tienes que seguir los siguientes pasos:
-   1. Inicie el servidor local con el siguiente comando:
-      ```bash
-      npm run database
-      ```
-   2. Diríjase a la ruta src/app/service/ToDo-service.ts/ y en la línea 4 reemplaza "apiWeb" por "localhost"
-
-- La principal ventaja de la base de datos local es la persistencia de datos, cualquier modificación en las tareas se guardará de forma local en el equipo.
+**Desarrollado con ❤️ usando Next.js y React**
