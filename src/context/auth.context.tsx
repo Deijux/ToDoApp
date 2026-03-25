@@ -9,12 +9,18 @@ import {
   useState,
 } from 'react'
 import { User } from '@/types/user'
+import { useRouter } from 'next/navigation'
 
 export const AuthContext = createContext<{
   user: User | null
   handleLogin: (email: string, password: string) => Promise<void>
   handleLogout: () => Promise<void>
-  handleRegister: (email: string, password: string, firstName: string, lastName: string) => Promise<void>
+  handleRegister: (
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+  ) => Promise<void>
 }>({
   user: null,
   handleLogin: async () => {},
@@ -25,6 +31,7 @@ export const AuthContext = createContext<{
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const { profile, login, logout, register } = useAuth()
+  const router = useRouter()
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -41,22 +48,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const handleLogin = async (email: string, password: string) => {
     const userLogged = await login(email, password)
     setUser(userLogged || null)
-    window.location.href = '/tasks'
+    router.push('/tasks')
   }
 
   const handleLogout = async () => {
     await logout()
     setUser(null)
+    window.location.href = '/login'
   }
 
-  const handleRegister = async (email: string, password: string, firstName: string, lastName: string) => {
+  const handleRegister = async (
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+  ) => {
     const userRegistered = await register(email, password, firstName, lastName)
     setUser(userRegistered || null)
-    window.location.href = '/tasks'
+    router.push('/tasks')
   }
 
   return (
-    <AuthContext.Provider value={{ user, handleLogin, handleLogout, handleRegister }}>
+    <AuthContext.Provider
+      value={{ user, handleLogin, handleLogout, handleRegister }}
+    >
       {children}
     </AuthContext.Provider>
   )
