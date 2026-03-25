@@ -24,7 +24,7 @@ export default function LoginForm({ onSubmit, redirectToRegister }: LoginFormPro
   }
 
   return (
-    <div className='min-h-[400px] flex items-center justify-center p-4'>
+    <div className='min-h-[400px] h-dvh flex items-center justify-center'>
       <form
         onSubmit={handleSubmit(submit)}
         className='w-full max-w-md bg-white p-8 rounded-2xl shadow-xl border border-gray-100 flex flex-col gap-5 transition-all'

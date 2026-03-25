@@ -15,7 +15,7 @@ export default function TasksPage() {
   } = useTaskContext()
 
   return (
-    <main className='grid content-start justify-center pt-6'>
+    <main className='grid content-start justify-center py-6'>
       <div className='flex flex-col items-center gap-10 max-w-md'>
         <SearchBar handleAddTask={handleAddTask} />
 
